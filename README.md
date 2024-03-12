@@ -17,12 +17,15 @@ Additional installation of PySide6/Qt package is needed for GUI, type in prompt 
 CADENCE have dependencies on the SciPy, Pandas, and Matplotlib libraries for correct functioning, so you will need to install them:
 
  conda install matplotlib
+ 
  conda install scipy
+ 
  conda install pandas
 
 To run examples for later analysis you will need Elephant and viziphant packages installation, see instructions by the link:
 
  pip3 install elephant
+ 
  pip3 install viziphant
 
 Usage
