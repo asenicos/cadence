@@ -29,12 +29,13 @@ To run examples for later analysis you will need Elephant and viziphant packages
  pip3 install viziphant
 
 Usage
+
 Work with CADENCE is straightforward: first you need to open tab-separated file with dF/F data (File/Open dF/F). We provide example dF/F file from Celena X calcium imaging experiment and example data from Miniscope. Tab-separated data file can be prepared in spreadsheet like Excel, decimal separator is dot. When file is opened, the relative fluorescence for the first channel with distinguished events is appeared in main window. We recommend to use low pass and high pass filtering of data from Celena X (LP/HP Filtering checkbox). Relative fluorescence data from Miniscope were processed by MiniAn and don't need to be filtered after CNMF-e algorithm. The speed of processing such data in CADENCE may be as high, as 20 channels per minute. Threshold and window of peaks detection can be tuned by respective spin boxes. When you are satisfied with detected calcium events for the channel, you can save the results by pressing button "Accept channel". The next channel will be displayed automatically. If you decide to skip a channel because of bad quality of dF/F data and detection, just increase channel number in Channel spin box. Channels where "Accept channel" button were not pressed will not appeared in final output data. When you process all of channels use File/Save events to save output to text file. This output file contains all events for all accepted channels and can be loaded to Python for later analysis.
 ![example_traces](https://github.com/asenicos/cadence/assets/31521207/81a5c642-e70a-4587-bbb0-fdf79866121f)
 ![example_raster](https://github.com/asenicos/cadence/assets/31521207/b53971b7-c643-41ce-a322-d16a3a01057d)
 
-
 Analysis
+
 We provide a code for loading output data to Elephant for later analysis in a separate file. After loading data the code shows raster plot of calcium events, calculate mean firing rate, Spike-contrast synchrony, CuBIC xi, and plot results of SPADE analysis for synchronous events.
 ![example_spade](https://github.com/asenicos/cadence/assets/31521207/edabbf28-d5f8-4279-ba20-c9922ef78fca)
 
