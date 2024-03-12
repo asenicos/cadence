@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html lang="en">
+<!-- (c) AseNic http://asenic.ru -->
+<head><meta name="Author" content="front@asenic.ru"><meta name="Reply-to" content="front@asenic.ru">
+<meta name="Description" content="CADENCE — supervised calcium events detection tool.">
+<meta name="Keywords" content="CADENCE, calcium events, detection, tool, calcium imaging.">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="SHORTCUT ICON" href="../f.ico">
+<title>CADENCE — supervised calcium events detection tool.</title>
+<style type="text/css">
+<!--
+.s1 {font-size: x-large}
+.style2 {font-size: smaller}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFcc" text="#666666" link="#999966" vlink="#CC9999" alink="#99CC99">
+
+<table width="100%" border="0">
+  <tr><td></td>
+<td width="80%">
+<table border="0" cellspacing="2%">
+  <tr>
+    <td><h1>CADENCE — supervised calcium events detection tool.</h1>
+      <p class="s1" align="justify">CADENCE is&nbsp;an&nbsp;open-source Python3-written neuroinformatic tool with&nbsp;Qt6 GUI for&nbsp;supervised calcium events detection. In&nbsp;calcium imaging experiments, the&nbsp;&nbsp;instruments' (Celena X, Miniscope) output is a&nbsp;movie with flashing cells. There are few pipelines to&nbsp;convert video to&nbsp;relative fluorescence dF/F, from simplest ImageJ/Fiji plugins to sophisticated tools like <a href="https://minian.readthedocs.io/en/stable/index.html">MiniAn</a>. dF/F may be <em>per&nbsp;se</em> desired result, but usually researcher interested in more detailed analysis of calcium events. Here is the niche for&nbsp;our tool, as one need to distinguish calcium events from dF/F curve and rasterize it for&nbsp;later use in analysis software, like <a href="https://elephant.readthedocs.io/en/latest/index.html">Elephant</a>.</p>
+      <p align="center"><img src="http://asenic.ru/sci/cadence_gui.gif" width="1095" height="744" alt="CADENCE GUI"/><br>
+		CADENCE GUI. Blue line is filtered dF/F, red dots are distinguished calcium events.</p>
+	  <h2 class="s1">Installation</h2>
+	  <p class="s1">To run the tool, you need Python 3 installed in your system (we wrote and tested tool in&nbsp;Python 3.8). If you do not have Python on your PC, we&nbsp;recommend downloading and installing the <a href="https://docs.anaconda.com/free/miniconda/miniconda-other-installer-links/">Miniconda</a> package:</p>
+	<code class="s1">&nbsp;install miniconda</code>
+	  <p class="s1">Additional installation of PySide6/Qt package is needed for GUI, type in prompt shell:</p>
+	<code class="s1">&nbsp;pip3 install pyside6</code>
+		<p class="s1">CADENCE have dependencies on the SciPy, Pandas, and Matplotlib libraries for correct functioning, so you will need to install them:</p>
+	<code class="s1">&nbsp;conda install matplotlib<br>
+&nbsp;conda install scipy<br>
+	&nbsp;conda install pandas</code>
+	  <p class="s1"> To run examples for later analysis you will need <a href="https://elephant.readthedocs.io/en/latest/install.html">Elephant</a> and viziphant packages installation, see instructions by the link:</p>
+	  <code class="s1">&nbsp;pip3 install elephant<br>
+	    &nbsp;pip3 install viziphant</code>
+	  <h2 class="s1">&nbsp;</h2>
+	  <h2 class="s1">Usage</h2>
+	  <p class="s1">Work with CADENCE is straightforward: first you need to open tab-separated file with dF/F data (<em>File/Open dF/F</em>). We provide example dF/F file from Celena X calcium imaging experiment and example data from Miniscope. Tab-separated data file can be prepared in spreadsheet like Excel, decimal separator is dot. When file is opened, the relative fluorescence for the first channel with distinguished events is&nbsp;appeared in main window. We&nbsp;recommend to use low pass and high pass filtering of data from Celena X (<em>LP/HP Filtering</em> checkbox). Relative fluorescence data from Miniscope were processed by MiniAn and don't need to be filtered after CNMF-e algorithm. The speed of processing such data in CADENCE may be as high, as 20 channels per minute. Threshold and window of peaks detection can be tuned by respective spin boxes. When&nbsp;you are satisfied with detected calcium events for the channel, you can save the results by pressing button &quot;<em>Accept channel</em>&quot;. The next channel will be displayed automatically. If&nbsp;you decide to skip a&nbsp;channel because of bad quality of dF/F data and&nbsp;detection, just increase channel number in <em>Channel</em> spin box. Channels where &quot;<em>Accept channel</em>&quot; button were not pressed will not&nbsp;appeared in final output data. When you process all of channels use <em>File/Save&nbsp;events</em> to&nbsp;save output to text file. This output file contains all events for all accepted channels and can&nbsp;be loaded to Python for later analysis. </p>
+	  <h2 class="s1">Analysis</h2>
+	  <p class="s1">We provide a code for loading output data to Elephant for later analysis  in a separate file. After loading data the code shows raster plot of calcium events, calculate mean firing rate, <a href="https://elephant.readthedocs.io/en/stable/reference/_toctree/spike_train_synchrony/elephant.spike_train_synchrony.spike_contrast.html">Spike-contrast synchrony</a>, <a href="https://elephant.readthedocs.io/en/latest/reference/cubic.html">CuBIC</a> xi, and plot results of <a href="https://elephant.readthedocs.io/en/latest/reference/spade.html">SPADE analysis</a> for synchronous events.</p>
+	  <p align="center"><img src="http://asenic.ru/sci/example_traces.png" width="736" height="498" alt="Traces of dF/F for example data"/></p>
+	  <p align="center">Traces of dF/F for example data file</p>
+	  <p align="center">&nbsp;</p>
+	  <p align="center"><img src="http://asenic.ru/sci/example_raster.png" width="1164" height="697" alt="Raster plot of calcium events for example data"/></p>
+	  <p align="center">Raster plot of calcium events for example data.</p>
+	  <p align="center">&nbsp;</p>
+	  <p align="center"><img src="http://asenic.ru/sci/example_spade.png" width="1024" height="702" alt="SPADE analysis of example data"/></p>
+	  <p align="center">SPADE analysis for example data reveals two overlapping neuronal ensembles.</p>
+	  <h2 class="s1">Comparison</h2>
+      <p class="s1">We made a comparison with sophisticated ML tool for automated calcium events detection, <a href="https://doi.org/10.1038/s41593-021-00895-5">Cascade</a>. Without &quot;ground truth&quot; data (eg. patch clamp recording simultaneous to imaging), out of&nbsp;the&nbsp;box, Cascade shows worse detection of calcium events small in magnitude. Nevertheless, Cascade analyze magnitude of events and trying to inferring spike bursts from high-magnitude events. </p>
+      <p align="center"><img src="http://asenic.ru/sci/example_cascade.png" width="720" height="498" alt="Comparison with Cascade"/></p>
+      <p align="center">Upper trace is dF/F, middle trace is the result of CADENCE detection, lower one is for Cascade detection with optimal parameters.</p>
+      <h2 class="s1">Current status</h2>
+      <p class="s1">CADENCE is on a beta-testing right now, and when it is finished will be deposited on&nbsp;GitHub for open access. If you are interested to be involved in beta-testing on your data, please request the code from the <a href="mailto:aseyev@ihna.ru">authors</a>.</p>
+      <p align="center">&nbsp;</p>      <p align="center">&nbsp;</p></td></tr></table>
+</td><td width="10%"></td></tr>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td></td><td></td></tr></table>
+</body></html>
+
