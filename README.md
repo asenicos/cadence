@@ -45,6 +45,7 @@ _Raster plot of calcium events for example data._
 Analysis
 
 We provide a code for loading output data to Elephant for later analysis in a separate file. After loading data the code shows raster plot of calcium events, calculate mean firing rate, Spike-contrast synchrony, CuBIC xi, and plot results of SPADE analysis for synchronous events.
+
 ![example_spade](https://github.com/asenicos/cadence/assets/31521207/edabbf28-d5f8-4279-ba20-c9922ef78fca)
 
 _SPADE analysis for example data reveals two overlapping neuronal ensembles._
@@ -52,6 +53,7 @@ _SPADE analysis for example data reveals two overlapping neuronal ensembles._
 Comparison
 
 We made a comparison with sophisticated ML tool for automated calcium events detection, Cascade. Without "ground truth" data (eg. patch clamp recording simultaneous to imaging), out of the box, Cascade shows worse detection of calcium events small in magnitude. Nevertheless, Cascade analyze magnitude of events and trying to inferring spike bursts from high-magnitude events.
+
 ![example_cascade](https://github.com/asenicos/cadence/assets/31521207/05143196-e57c-47d6-9aa2-5a1bb56de2c1)
 
 _Upper trace is dF/F, middle trace is the result of CADENCE detection, lower one is for Cascade detection with optimal parameters._
