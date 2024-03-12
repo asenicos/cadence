@@ -5,17 +5,21 @@ CADENCE is an open-source Python3-written neuroinformatic tool with Qt6 GUI for 
 ![cadence_gui](https://github.com/asenicos/cadence/assets/31521207/b5b56525-f0ad-478f-8ed1-852bdd931a1e)
 
 Installation
+
 To run the tool, you need Python 3 installed in your system (we wrote and tested tool in Python 3.8). If you do not have Python on your PC, we recommend downloading and installing the Miniconda package:
 
  install miniconda
+
 Additional installation of PySide6/Qt package is needed for GUI, type in prompt shell:
 
  pip3 install pyside6
+ 
 CADENCE have dependencies on the SciPy, Pandas, and Matplotlib libraries for correct functioning, so you will need to install them:
 
  conda install matplotlib
  conda install scipy
  conda install pandas
+
 To run examples for later analysis you will need Elephant and viziphant packages installation, see instructions by the link:
 
  pip3 install elephant
