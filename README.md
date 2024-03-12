@@ -43,3 +43,4 @@ Comparison
 
 We made a comparison with sophisticated ML tool for automated calcium events detection, Cascade. Without "ground truth" data (eg. patch clamp recording simultaneous to imaging), out of the box, Cascade shows worse detection of calcium events small in magnitude. Nevertheless, Cascade analyze magnitude of events and trying to inferring spike bursts from high-magnitude events.
 ![example_cascade](https://github.com/asenicos/cadence/assets/31521207/05143196-e57c-47d6-9aa2-5a1bb56de2c1)
+_Upper trace is dF/F, middle trace is the result of CADENCE detection, lower one is for Cascade detection with optimal parameters._
