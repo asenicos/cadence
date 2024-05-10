@@ -18,7 +18,7 @@ from elephant import statistics
 from elephant.cubic import cubic
 
 #read calcium events
-exp='example1_celena_raster.txt'
+exp='example3_slice_raster.txt'
 path='d:\\my_scripts\\py\\calcium\\2024\\'
 os.chdir(path)
 files=os.listdir('.')
@@ -42,7 +42,7 @@ for i in range(len(events)):
     events_list.append(events.iloc[i, :].dropna().tolist())
    
 #converting bin to ms
-sampling_rate=13.6 #fps for Celena X example data
+sampling_rate=2 #fps for slice example data
 for ite in range(len(events_list)) :
     for i in range(len(events_list[ite])):
         events_list[ite][i]=events_list[ite][i]/sampling_rate
@@ -54,10 +54,11 @@ for ite in range(len(events_list)) :
 #showing raster plot
 plt.figure(dpi=600)
 plt.figure(figsize=(20,12))
+#plt.rcParams.update({'axes.labelsize': 'x-large', 'axes.titlesize':'x-large'})
 plt.eventplot([st.magnitude for st in spiketrains], linelengths=0.75, linewidths=1.75, color='black')
 plt.xlabel("Time, s")
 plt.ylabel("Channels")
-#plt.savefig('foo.svg', bbox_inches='tight')
+plt.savefig('foo.svg', bbox_inches='tight')
 plt.show()
 
 
@@ -67,11 +68,12 @@ for it in range(len(spiketrains)):
     frate.append(mean_firing_rate(SpikeTrain(spiketrains[it], t_stop=300*s), t_start=0*s, t_stop=300*s))
 print(np.mean(frate))
 
+
 #Spike-contrast synchrony for all range https://elephant.readthedocs.io/en/stable/reference/_toctree/spike_train_synchrony/elephant.spike_train_synchrony.spike_contrast.html
 round(elephant.spike_train_synchrony.spike_contrast(spiketrains, t_start=0*s, t_stop=300*s, min_bin=1 * s, bin_shrink_factor=0.9, return_trace=False),3)
 
 #CuBIC https://elephant.readthedocs.io/en/latest/reference/cubic.html
-pop_count = statistics.time_histogram(spiketrains, bin_size=10 * s)
+pop_count = statistics.time_histogram(spiketrains, bin_size=1 * s)
 plt.hist(pop_count)
 xi, p_val, kappa, test_aborted = cubic(pop_count, alpha=0.05)
 print(xi, p_val)

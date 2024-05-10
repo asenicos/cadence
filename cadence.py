@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
         save_action = QAction('Save events', self)
         file_menu.addAction(open_action)
         file_menu.addAction(save_action)
-        global fil, path, Fluorescence, NormalizedFluorescence, totaldatapoints, events
+        global fil, path, Fluorescence, NormalizedFluorescence, totaldatapoints, events,  FilteredFluorescence, EventsAllCh
         fil=''
         path=''
         open_action.triggered.connect(lambda i: self.open_file())
@@ -61,9 +61,11 @@ class MainWindow(QMainWindow):
         st=f.read()
         Fluorescence = pd.read_csv(fil,sep='\t',header=None)
         f.close()
+        Fluorescence.dropna(how='all', axis=1, inplace=True)#removing empty columns
         
         NormalizedFluorescence=[]
-        NormalizedFluorescence=(Fluorescence-Fluorescence.min())/(Fluorescence.max()-Fluorescence.min())#normalize events
+        NormalizedFluorescence=(Fluorescence-Fluorescence.min())/(Fluorescence.max()-Fluorescence.min()) #normalize df/F
+       
         totaldatapoints=len(NormalizedFluorescence)
         self.plot_widget = PlotWidget(parent=self) #update plot
         self.setCentralWidget(self.plot_widget)
@@ -97,6 +99,7 @@ class PlotWidget(QWidget):
         self.w_input.setPrefix("Window: ")
         self.w_input.setValue(20)
         self.w_input.setSingleStep(5)
+        self.chn_input.setMaximum(999)
         
         self.thr_input = QDoubleSpinBox(decimals=4)
         self.thr_input.setPrefix("Threshold: ")
@@ -105,7 +108,7 @@ class PlotWidget(QWidget):
         
         self.button = QPushButton("&Accept channel", self)
     
-        # Â Create layout
+        # Create layout
         input_layout = QHBoxLayout()
         input_layout.addWidget(self.lowpass)
         input_layout.addWidget(self.chn_input)
@@ -124,12 +127,13 @@ class PlotWidget(QWidget):
         self.lowpass.toggled.connect(self.on_change)
         
         FilteredFluorescence, EventsAllCh, chn = self.on_change()
-        self.button.clicked.connect(lambda i: self.save_chn(FilteredFluorescence, EventsAllCh))
+        self.button.clicked.connect(self.save_chn)
      
-    def save_chn(self,FilteredFluorescence, EventsAllCh):
+    def save_chn(self):
         chn = self.chn_input.value()
+        global events, EventsAllCh
         events.insert(len(events),EventsAllCh[chn])#save to events array
-        print("channel ",chn, " saved")
+        print("channel ",chn, " saved: ",EventsAllCh[chn])
         self.chn_input.setValue(chn+1)
         
     def on_change(self):
@@ -156,7 +160,7 @@ def highpass(data: np.ndarray, cutoff: float, sample_rate: float, poles: int = 5
 
 #events discrimination
 def eventsdiscr (w, thr, filtr): 
-    global Fluorescence, NormalizedFluorescence, totaldatapoints
+    global Fluorescence, NormalizedFluorescence, totaldatapoints, FilteredFluorescence, EventsAllCh
     EventsAllCh=[] #all channels events
     FilteredFluorescence=[] #all channels traces
     for ite in range(len(Fluorescence.columns)):

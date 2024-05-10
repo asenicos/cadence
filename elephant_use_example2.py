@@ -57,6 +57,7 @@ plt.figure(figsize=(20,12))
 plt.eventplot([st.magnitude for st in spiketrains], linelengths=0.75, linewidths=1.75, color='black')
 plt.xlabel("Time, s")
 plt.ylabel("Channels")
+plt.savefig('foo.svg', bbox_inches='tight')
 plt.show()
 
 #firing rate
