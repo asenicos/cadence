@@ -2,6 +2,10 @@
 CADENCE is a neuroinformatic tool for supervised calcium events detection.
 CADENCE is an open-source Python3-written neuroinformatic tool with Qt6 GUI for supervised calcium events detection. In calcium imaging experiments, the  instruments' (Celena X, Miniscope) output is a movie with flashing cells. There are few pipelines to convert video to relative fluorescence dF/F, from simplest ImageJ/Fiji plugins to sophisticated tools like MiniAn. dF/F may be per se desired result, but usually researcher interested in more detailed analysis of calcium events. Here is the niche for our tool, as one need to distinguish calcium events from dF/F curve and rasterize it for later use in analysis software, like Elephant.
 
+Current status
+CADENCE is now published, please cite as:
+Nikolay Aseyev, Anastasia Borodinova, Svetlana Pavlova, Marina Roshchina, Matvey Roshchin, Evgeny Nikitin & Pavel Balaban. CADENCE — Neuroinformatics Tool for Supervised Calcium Events Detection. Neuroinformatics (2024). https://doi.org/10.1007/s12021-024-09677-3
+
 ![cadence_gui](https://github.com/asenicos/cadence/assets/31521207/b5b56525-f0ad-478f-8ed1-852bdd931a1e)
 
 _CADENCE GUI. Blue line is filtered dF/F, red dots are distinguished calcium events._
